@@ -1,0 +1,9 @@
+form {
+  max-width: 800px;
+  padding-top: 50px;
+  margin: 0 auto;
+}
+
+.add-event-btn {
+  cursor: pointer;
+}
