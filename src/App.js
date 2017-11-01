@@ -1,91 +1,43 @@
 import React, { Component } from 'react';
-import DatePicker from 'react-datepicker';
-import axios from 'axios';
-import moment from 'moment';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
-import 'react-datepicker/dist/react-datepicker.css';
 import './App.css';
+import Events from './events';
+import AddEvent from './events/AddEvent';
+import UpdateEvent from './events/UpdateEvent';
 
 class App extends Component {
-  
-  state = {
-    location: '',
-    date: moment(),
-    title: '',
-    success: null,
-    successMessage: ''
-  }
-  
-  onValueChange = (type, value) => {
-    this.setState({
-      [type]: value
-    });
-  }
-  
-  handleDateChange = (date) => {
-    this.setState({
-      date
-    });
-  }
-  
-  addEvent = (e) => {
-    const { location, date, title } = this.state;
-    e.preventDefault();
-
-    axios.post('http://localhost:5000/addevent', { location, date: date.toDate(), title })
-      .then((res) => {
-        this.setState({
-          success: true,
-          successMessage: res.data,
-          location: '',
-          title: '',
-          date: moment()
-        }, () => {
-          window.setTimeout(this.clearSuccess, 1500);
-        });
-      });
-  }
-  
-  clearSuccess = () => {
-    this.setState({
-      success: null,
-      successMessage: ''
-    })
-  }
-  
   render() {
-    const { location, date, title, success, successMessage } = this.state;
-    
     return (
-      <div className="App">
-        {success && (
-          <div className="alert alert-success" role="alert">
-            { successMessage }
-          </div>
-        )}
-        <form onSubmit={this.addEvent}>
-          <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input type="text" className="form-control" id="title" aria-describedby="event title" placeholder="Title" value={title} onChange={({target: {value}}) => this.onValueChange('title', value)} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="location">Location</label>
-            <input type="text" className="form-control" id="eventLocation" placeholder="Location" value={location} onChange={({target: {value}}) => this.onValueChange('location', value)} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="date">Date</label>
-            <DatePicker
-                className="form-control date-picker"
-                id="date"
-                selected={date}
-                onChange={this.handleDateChange}
-            />
-          </div>
-          <button type="submit" className="add-event-btn btn btn-primary">Add Event</button>
-        </form>
-      </div>
+      <Router>
+         <div>
+           <nav className="navbar navbar-expand-lg navbar-light bg-light">
+              <Link className="navbar-brand" to="/">Arezzo</Link>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/">Home</Link>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+           <Route exact path="/" component={Events}/>
+           <Route path="/addevent" component={AddEvent}/>
+           <Route path="/updateevent/:eventId" component={UpdateEvent} />
+         </div>
+       </Router>
     );
   }
 }
 
 export default App;
+

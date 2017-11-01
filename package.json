@@ -2,19 +2,26 @@
   "name": "arezzo_web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://birdwell.github.io/arezzo_web",
   "dependencies": {
     "axios": "^0.17.0",
     "bootstrap": "4.0.0-beta.2",
+    "gh-pages": "^1.0.0",
     "moment": "^2.19.1",
     "react": "^16.0.0",
     "react-datepicker": "^0.57.0",
     "react-dom": "^16.0.0",
+    "react-icons-kit": "^1.0.7",
+    "react-places-autocomplete": "^5.4.3",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }

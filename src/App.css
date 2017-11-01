@@ -7,3 +7,7 @@ form {
 .add-event-btn {
   cursor: pointer;
 }
+
+#PlacesAutocomplete__autocomplete-container {
+    z-index: 1;
+}
