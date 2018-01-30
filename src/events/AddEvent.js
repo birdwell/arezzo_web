@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
+import { placeDetailsRequest } from 'googleplaces';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -49,6 +50,8 @@ export default class AddEvent extends Component {
 
     const { location, date, title } = this.state;
     const results = await geocodeByAddress(location);
+    const placeDetail = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyAfMJ0dTjFcd5UUbSCQsur5_0B9k-x6pmA&placeid=${results[0].place_id}`);
+    console.log(placeDetail);
     const lat = results[0] && results[0].geometry.location.lat();
     const lng = results[0] && results[0].geometry.location.lng();
     
