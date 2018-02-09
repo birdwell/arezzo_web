@@ -6,7 +6,21 @@ import Select from 'react-select';
 
 import 'react-select/dist/react-select.css';
 
-import { LabeledField, LabeledRadio, Contact } from '../common';
+import { LabeledField, LabeledRadio, Contact, MultiSelect, SplitRow } from '../common';
+
+const PAYMENT_TYPES = [
+	{ value: 'cash', label: 'Cash' },
+	{ value: 'card', label: 'Card' },
+	{ value: 'check', label: 'Check' },
+];
+
+const LANGUAGES_AVAILABLE = [
+	{ value: 'english', label: 'English' },
+	{ value: 'italian', label: 'Italian' },
+	{ value: 'french', label: 'French' },
+	{ value: 'spanish', label: 'Spanish' },
+	{ value: 'german', label: 'German' },
+];
 
 class BaseForm extends Component {
 	static propTypes = {
@@ -63,8 +77,9 @@ class BaseForm extends Component {
 		return (
 			<form onSubmit={this.onSubmit}>
 				{this.props.children}
-				<LabeledField name="title" value={title} placeholder="Title" onChange={this.onChange} />
-				<LabeledField name="description" value={description} placeholder="Description" type="textarea" onChange={this.onChange} />
+				<br />
+				<LabeledField name="title" value={title} onChange={this.onChange} />
+				<LabeledField name="description" value={description} type="textarea" onChange={this.onChange} />
 				<Contact
 					phoneNumber={phoneNumber}
 					address={address}
@@ -76,52 +91,38 @@ class BaseForm extends Component {
 					{/* <label htmlFor="location">Location</label>
 					<PlacesAutocomplete classNames="form-control" inputProps={inputProps} /> */}
 				</div>
-				<LabeledField name="price" value={price} placeholder="Enter $0.00" onChange={this.onChange} />
-				<LabeledField name="suggestedAge" label="Suggested Age" value={suggestedAge} placeholder="3+, 18+, etc." onChange={this.onChange} />
-				<Select
-					multi
-					name="paymentType"
-					value={paymentType}
-					onChange={value => this.onChange('paymentType', value)}
-					options={[
-						{ value: 'cash', label: 'Cash' },
-						{ value: 'card', label: 'Card' },
-						{ value: 'check', label: 'Check' },
-					]}
-				/>
-				<Select
-					multi
-					name="languagesAvailable"
-					value={languagesAvailable}
-					onChange={value => this.onChange('languagesAvailable', value)}
-					options={[
-						{ value: 'english', label: 'English' },
-						{ value: 'italian', label: 'Italian' },
-						{ value: 'french', label: 'French' },
-						{ value: 'spanish', label: 'Spanish' },
-						{ value: 'german', label: 'German' },
-					]}
-				/>
-				<LabeledField name="restrictions" value={restrictions} placeholder="None" onChange={this.onChange} />
+				<SplitRow>
+					<LabeledField name="price" value={price} placeholder="Enter $0.00" onChange={this.onChange} />
+					<MultiSelect name="paymentType" label="Payment Type" value={paymentType} options={PAYMENT_TYPES} onChange={this.onChange} />
+				</SplitRow>
+				<SplitRow>
+					<MultiSelect name="languagesAvailable" label="Languages Available" value={languagesAvailable} options={LANGUAGES_AVAILABLE} onChange={this.onChange} />
+					<LabeledField
+						label="Recommended Visit Duration"
+						name="recommendedVisitDuration"
+						placeholder="Enter number of hours"
+						value={recommendedVisitDuration}
+						onChange={this.onChange}
+					/>
+				</SplitRow>
+				<SplitRow>
+					<LabeledField name="suggestedAge" label="Suggested Age" value={suggestedAge} placeholder="3+, 18+, etc." onChange={this.onChange} />
+					<LabeledField name="restrictions" value={restrictions} placeholder="None" onChange={this.onChange} />
+				</SplitRow>
 				<LabeledRadio
+					inline
 					label="Wifi Available"
 					name="isWifiAvailabe"
 					value={isWifiAvailable}
-					options={[{ label: 'yes', value: 'yes' }, { label: 'no', value: 'no' }]}
+					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
 					onChange={this.onChange}
 				/>
 				<LabeledRadio
+					inline
 					label="Handicap Accessibility?"
 					name="isHandicapAccessible"
 					value={isHandicapAccessible}
-					options={[{ label: 'yes', value: 'yes' }, { label: 'no', value: 'no' }]}
-					onChange={this.onChange}
-				/>
-				<LabeledField
-					name="recommendedVisitDuration"
-					label="Recommended Visit Duration"
-					placeholder="Enter number of hours"
-					value={recommendedVisitDuration}
+					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
 					onChange={this.onChange}
 				/>
 			</form>
