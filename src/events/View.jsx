@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import './View.css';
-import Event from '../components/event';
+import Event from './components/event';
 
 class Events extends Component {
   static propTypes = {

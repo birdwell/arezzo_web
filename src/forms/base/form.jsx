@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
-// import PlacesAutocomplete from 'react-places-autocomplete';
-// import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 
-import 'react-select/dist/react-select.css';
-
+import { getPlaceDetail } from '../../api';
 import { LabeledField, LabeledRadio, Contact, MultiSelect, SplitRow } from '../common';
 
 const PAYMENT_TYPES = [
@@ -25,7 +22,7 @@ const LANGUAGES_AVAILABLE = [
 class BaseForm extends Component {
 	static propTypes = {
 		onSubmit: PropTypes.func.isRequired,
-		children: PropTypes.element,
+		children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
 	}
 
 	static defaultProps = {
@@ -35,7 +32,7 @@ class BaseForm extends Component {
 	state = {
 		title: '',
 		description: '',
-		// location: '',
+		location: '',
 		latitude: 0,
 		longitude: 0,
 		// hours: [],
@@ -43,7 +40,7 @@ class BaseForm extends Component {
 		phoneNumber: 0,
 		address: '',
 		website: '',
-		mediaLinks: [],
+		mediaLinks: '',
 		suggestedAge: 0,
 		paymentType: [],
 		languagesAvailable: [],
@@ -59,9 +56,23 @@ class BaseForm extends Component {
 		});
 	}
 
-	onSubmit = (e) => {
+	onSubmit = async (e) => {
 		e.preventDefault();
+
+		const results = await geocodeByAddress(this.state.address);
 		this.props.onSubmit(this.state);
+	}
+
+	autoFill = async (e) => {
+		e.stopPropagation();
+		const results = await geocodeByAddress(this.state.location);
+		if (results && results.length > 0) {
+			debugger;
+			const placeDetails = await getPlaceDetail(results[0].place_id);
+			if (placeDetails.status === 200 && placeDetails.data) {
+				this.setState({ ...placeDetails.data });
+			}
+		}
 	}
 
 	render() {
@@ -72,14 +83,25 @@ class BaseForm extends Component {
 			isWifiAvailable, isHandicapAccessible,
 			recommendedVisitDuration, phoneNumber,
 			address, website, mediaLinks,
+			location,
 		} = this.state;
+		const inputProps = {
+			value: location,
+			onChange: x => this.onChange('location', x),
+		};
 
 		return (
-			<form onSubmit={this.onSubmit}>
+			<form className="base-form" onSubmit={this.onSubmit}>
 				{this.props.children}
 				<br />
 				<LabeledField name="title" value={title} onChange={this.onChange} />
 				<LabeledField name="description" value={description} type="textarea" onChange={this.onChange} />
+				<div className="form-group">
+					<label htmlFor="location">Location</label>
+					<PlacesAutocomplete classNames={{ root: 'places-autocomplete' }}inputProps={inputProps} />
+					<br />
+					<button onClick={this.autoFill} className="btn btn-primary">Attempt to Autofill</button>
+				</div>
 				<Contact
 					phoneNumber={phoneNumber}
 					address={address}
@@ -87,10 +109,6 @@ class BaseForm extends Component {
 					mediaLinks={mediaLinks}
 					onChange={this.onChange}
 				/>
-				<div className="form-group">
-					{/* <label htmlFor="location">Location</label>
-					<PlacesAutocomplete classNames="form-control" inputProps={inputProps} /> */}
-				</div>
 				<SplitRow>
 					<LabeledField name="price" value={price} placeholder="Enter $0.00" onChange={this.onChange} />
 					<MultiSelect name="paymentType" label="Payment Type" value={paymentType} options={PAYMENT_TYPES} onChange={this.onChange} />
@@ -125,6 +143,7 @@ class BaseForm extends Component {
 					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
 					onChange={this.onChange}
 				/>
+				<button type="submit" className="submit btn btn-primary">Submit</button>
 			</form>
 		);
 	}

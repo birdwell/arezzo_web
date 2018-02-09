@@ -21,11 +21,11 @@ const LabeledRadio = ({ label, options, value, onChange, name, inline }) => (
 
 LabeledRadio.propTypes = {
 	label: PropTypes.string.isRequired,
-	options: PropTypes.arrayOf({
-		value: PropTypes.string.isRequired,
+	options: PropTypes.arrayOf(PropTypes.shape({
+		value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 		label: PropTypes.string.isRequired,
-	}).isRequired,
-	value: PropTypes.oneOfType(PropTypes.string, PropTypes.bool).isRequired,
+	})).isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 	onChange: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
 	inline: PropTypes.bool,
@@ -33,6 +33,7 @@ LabeledRadio.propTypes = {
 
 LabeledRadio.defaultProps = {
 	inline: false,
+	value: '',
 };
 
 export default LabeledRadio;

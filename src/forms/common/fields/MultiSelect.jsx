@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import cx from 'classnames';
 
+import 'react-select/dist/react-select.css';
+
 const MultiSelect = ({ label, value, options, onChange, name, className }) => (
 	<div className={cx('form-group', [className])}>
 		<label>{label}</label>
@@ -18,17 +20,14 @@ const MultiSelect = ({ label, value, options, onChange, name, className }) => (
 
 MultiSelect.propTypes = {
 	label: PropTypes.string.isRequired,
-	value: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number,
-	]),
-	options: PropTypes.arrayOf({
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+	options: PropTypes.arrayOf(PropTypes.shape({
 		label: PropTypes.string.isRequired,
 		value: PropTypes.oneOfType([
 			PropTypes.string,
 			PropTypes.number,
 		]).isRequired,
-	}).isRequired,
+	})).isRequired,
 	onChange: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
 	className: PropTypes.string,

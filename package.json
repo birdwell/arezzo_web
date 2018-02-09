@@ -1,6 +1,7 @@
 {
   "name": "arezzo_web",
   "version": "0.1.0",
+  "proxy": "http://localhost:5000",
   "private": true,
   "homepage": "https://birdwell.github.io/arezzo_web",
   "dependencies": {
