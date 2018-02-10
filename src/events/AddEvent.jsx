@@ -3,34 +3,48 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { BaseForm } from '../forms/base';
+
+import { addEvent } from '../api';
+import { SplitRow, BaseForm } from '../forms';
 
 class AddEvent extends Component {
 	state = {
-		date: moment(),
+		startDate: moment(),
+		endDate: moment(),
 	}
 
-	onChange = (date) => {
-		this.setState({ date });
+	onChange = (name, value) => {
+		this.setState({
+			[name]: value,
+		});
 	}
 
 	onSubmit = (fields) => {
-		debugger;
+		const { startDate, endDate } = this.state;
+		addEvent({ ...fields, startDate, endDate });
 	}
 
 	render() {
-		const { date } = this.state;
+		const { startDate, endDate } = this.state;
 		return (
 			<div className="event-form">
 				<BaseForm onSubmit={this.onSubmit}>
-					<label htmlFor="date">Date</label>
-					<DatePicker
-						selected={date}
-						name="date"
-						className="form-control date-picker"
-						onChange={this.onChange}
-						id="date"
-					/>
+					<SplitRow>
+						<label htmlFor="startDate">Start Date</label>
+						<DatePicker
+							selected={startDate}
+							name="startDate"
+							className="form-control date-picker"
+							onChange={date => this.onChange('startDate', date)}
+						/>
+						<label htmlFor="endDate">End Date</label>
+						<DatePicker
+							selected={endDate}
+							name="endDate"
+							className="form-control date-picker"
+							onChange={date => this.onChange('endDate', date)}
+						/>
+					</SplitRow>
 				</BaseForm>
 
 			</div>

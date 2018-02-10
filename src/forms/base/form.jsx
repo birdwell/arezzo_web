@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 
+import './form.css';
 import { getPlaceDetail } from '../../api';
 import { LabeledField, LabeledRadio, Contact, MultiSelect, SplitRow } from '../common';
 
@@ -42,12 +43,12 @@ class BaseForm extends Component {
 		website: '',
 		mediaLinks: '',
 		suggestedAge: 0,
-		paymentType: [],
+		paymentOptions: [],
 		languagesAvailable: [],
 		restrictions: [],
-		isWifiAvailable: false,
-		isHandicapAccessible: false,
-		recommendedVisitDuration: 0,
+		wifi: false,
+		accessibility: false,
+		visitDuration: 0,
 	}
 
 	onChange = (name, value) => {
@@ -67,7 +68,6 @@ class BaseForm extends Component {
 		e.stopPropagation();
 		const results = await geocodeByAddress(this.state.location);
 		if (results && results.length > 0) {
-			debugger;
 			const placeDetails = await getPlaceDetail(results[0].place_id);
 			if (placeDetails.status === 200 && placeDetails.data) {
 				this.setState({ ...placeDetails.data });
@@ -78,10 +78,10 @@ class BaseForm extends Component {
 	render() {
 		const {
 			title, description,
-			price, suggestedAge, paymentType,
+			price, suggestedAge, paymentOptions,
 			languagesAvailable, restrictions,
-			isWifiAvailable, isHandicapAccessible,
-			recommendedVisitDuration, phoneNumber,
+			wifi, accessibility,
+			visitDuration, phoneNumber,
 			address, website, mediaLinks,
 			location,
 		} = this.state;
@@ -111,15 +111,15 @@ class BaseForm extends Component {
 				/>
 				<SplitRow>
 					<LabeledField name="price" value={price} placeholder="Enter $0.00" onChange={this.onChange} />
-					<MultiSelect name="paymentType" label="Payment Type" value={paymentType} options={PAYMENT_TYPES} onChange={this.onChange} />
+					<MultiSelect name="paymentOptions" label="Payment Options" value={paymentOptions} options={PAYMENT_TYPES} onChange={this.onChange} />
 				</SplitRow>
 				<SplitRow>
 					<MultiSelect name="languagesAvailable" label="Languages Available" value={languagesAvailable} options={LANGUAGES_AVAILABLE} onChange={this.onChange} />
 					<LabeledField
 						label="Recommended Visit Duration"
-						name="recommendedVisitDuration"
+						name="visitDuration"
 						placeholder="Enter number of hours"
-						value={recommendedVisitDuration}
+						value={visitDuration}
 						onChange={this.onChange}
 					/>
 				</SplitRow>
@@ -131,15 +131,15 @@ class BaseForm extends Component {
 					inline
 					label="Wifi Available"
 					name="isWifiAvailabe"
-					value={isWifiAvailable}
+					value={wifi}
 					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
 					onChange={this.onChange}
 				/>
 				<LabeledRadio
 					inline
 					label="Handicap Accessibility?"
-					name="isHandicapAccessible"
-					value={isHandicapAccessible}
+					name="accessibility"
+					value={accessibility}
 					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
 					onChange={this.onChange}
 				/>
