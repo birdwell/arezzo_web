@@ -10,7 +10,7 @@ export const getPlaceDetail = async (placeId) => {
 export const addEvent = async (fields) => {
 	const {
 		phoneNumber, address, website, mediaLinks,
-		paymentOptions, languagesAvailable, restrictions,
+		paymentOptions, languagesAvailable,
 	} = fields;
 	const event = { ...fields };
 
@@ -19,16 +19,25 @@ export const addEvent = async (fields) => {
 	delete event.website;
 	delete event.mediaLinks;
 
+	/* From Google Api */
+	delete event.icon;
+	delete event.id;
+	delete event.name;
+	delete event.photos;
+	delete event.rating;
+	delete event.reviews;
+	delete event.types;
+
 	event.contactInfo = {
 		phoneNumber,
 		address,
 		website,
 		mediaLinks: mediaLinks.split(','),
 	};
-
-	event.paymentOptions = paymentOptions.split(',');
-	event.languagesAvailable = languagesAvailable.split(',');
-	event.restrictions = restrictions.split(',');
+	debugger;
+	event.paymentOptions = paymentOptions.map(x => x.value);
+	event.languagesAvailable = languagesAvailable.map(x => x.value);
+	// event.restrictions = restrictions.map(x => x.value);
 
 	const response = await axios.post(`${API_BASE}/place`, { ...event });
 	debugger;

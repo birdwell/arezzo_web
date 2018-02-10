@@ -59,9 +59,18 @@ class BaseForm extends Component {
 
 	onSubmit = async (e) => {
 		e.preventDefault();
+		const { longitude, latitude, location } = this.state;
 
-		const results = await geocodeByAddress(this.state.address);
-		this.props.onSubmit(this.state);
+		if ((longitude === 0 || latitude === 0) && location !== '') {
+			const results = await geocodeByAddress(location);
+			if (results && results.length > 0) {
+				const lat = results[0].geometry.location.lat();
+				const lng = results[0].geometry.location.lng();
+				this.props.onSubmit({ ...this.state, longitude: lat, latitude: lng });
+			}
+		} else {
+			this.props.onSubmit(this.state);
+		}
 	}
 
 	autoFill = async (e) => {
@@ -98,7 +107,7 @@ class BaseForm extends Component {
 				<LabeledField name="description" value={description} type="textarea" onChange={this.onChange} />
 				<div className="form-group">
 					<label htmlFor="location">Location</label>
-					<PlacesAutocomplete classNames={{ root: 'places-autocomplete' }}inputProps={inputProps} />
+					<PlacesAutocomplete classNames={{ root: 'places-autocomplete' }} inputProps={inputProps} />
 					<br />
 					<button onClick={this.autoFill} className="btn btn-primary">Attempt to Autofill</button>
 				</div>
