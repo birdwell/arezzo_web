@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import './event.css';
 
 export default function Event({ event }) {
+  debugger;
   return (
     <div className="event">
       <div className="event-date">

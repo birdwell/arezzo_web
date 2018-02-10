@@ -2,52 +2,59 @@
 	max-width: 50%;
 	margin: 0 auto;
 	margin-top: 25px;
-  }
+}
   
-  .round-button {
+.empty-state {
+    padding: 15px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 1.5em;
+}
+
+.round-button {
 	width: 100%;
 	max-width: 50px;
 	float: right;
-  }
-  
-  .round-button-circle {
-	  width: 100%;
-	  height: 0;
-	  padding-bottom: 100%;
-	  border-radius: 50%;
-	  overflow: hidden;
-	  background: #ff4d40;
-	  -webkit-box-shadow: 0 0 3px grey;
-	  box-shadow: 0 0 3px grey;
-  }
-  
-  .round-button-circle:hover {
-	  background: #b5352b;
-  }
-  
-  .round-button a {
-	  display: block;
-	  float: left;
-	  width: 100%;
-	  padding-top: 50%;
-	  padding-bottom: 50%;
-	  line-height: 1em;
-	  margin-top: -0.5em;
-	  text-align: center;
-	  color: #ffffff;
-	  font-family: Verdana;
-	  font-size: 1.2em;
-	  font-weight: bold;
-	  text-decoration: none;
-  }
-  
-  .round-button a:hover {
-	  color: white;
-	  text-decoration: none;
-  }
-  
-  .add-event.round-button {
-	  position: relative;
-	  right: 25%;
-	  top: 20px;
-  }
+}
+
+.round-button-circle {
+	width: 100%;
+	height: 0;
+	padding-bottom: 100%;
+	border-radius: 50%;
+	overflow: hidden;
+	background: #ff4d40;
+	-webkit-box-shadow: 0 0 3px grey;
+	box-shadow: 0 0 3px grey;
+}
+
+.round-button-circle:hover {
+	background: #b5352b;
+}
+
+.round-button a {
+	display: block;
+	float: left;
+	width: 100%;
+	padding-top: 50%;
+	padding-bottom: 50%;
+	line-height: 1em;
+	margin-top: -0.5em;
+	text-align: center;
+	color: #ffffff;
+	font-family: Verdana;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.round-button a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.add-event.round-button {
+	position: relative;
+	right: 25%;
+	top: 20px;
+}

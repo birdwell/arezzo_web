@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import { addEvent } from '../api';
-import { SplitRow, BaseForm, Date } from '../forms';
+import { createEvent } from '../../api';
+import { SplitRow, BaseForm, Date } from '../../forms';
 
-class AddEvent extends Component {
+class CreateEvent extends Component {
 	state = {
 		startDate: moment(),
 		endDate: moment(),
@@ -18,13 +18,14 @@ class AddEvent extends Component {
 
 	onSubmit = (fields) => {
 		const { startDate, endDate } = this.state;
-		addEvent({ ...fields, startDate, endDate });
+		createEvent({ ...fields, startDate, endDate });
 	}
 
 	render() {
 		const { startDate, endDate } = this.state;
 		return (
 			<div className="event-form">
+				<h2>Create an Event</h2>
 				<BaseForm onSubmit={this.onSubmit}>
 					<SplitRow>
 						<Date label="Start Date" name="startDate" value={startDate} onChange={this.onChange} />
@@ -37,4 +38,4 @@ class AddEvent extends Component {
 	}
 }
 
-export default AddEvent;
+export default CreateEvent;

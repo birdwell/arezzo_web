@@ -8,7 +8,7 @@ import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class AddEvent extends Component {
+export default class CreateEvent extends Component {
 
   static propTypes = {
     

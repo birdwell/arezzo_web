@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import axios from 'axios';
 import {
   Link,
 } from 'react-router-dom';
 
 import './View.css';
 import Event from './components/event';
+import { getEvents } from '../api';
 
 class Events extends Component {
   static propTypes = {
@@ -17,12 +17,23 @@ class Events extends Component {
   }
 
   componentWillMount() {
-    axios('https://arezzo-server.herokuapp.com/events')
-      .then((res) => {
-        this.setState({
-          events: res.data,
-        });
-      });
+    getEvents()
+      .then(events => this.setState({ events }));
+  }
+
+  renderEvents = () => {
+    const { events } = this.state;
+    return (
+      <ul className="list-group list-group-flush">
+        {
+          events.map(event => (
+            <li key={event._id} className="list-group-item">
+              <Event event={event} />
+            </li>
+          ))
+        }
+      </ul>
+    );
   }
 
   render() {
@@ -30,17 +41,8 @@ class Events extends Component {
     return (
       <div>
         <div className="card events">
-          <ul className="list-group list-group-flush">
-          {
-            events.length > 0 && (
-              events.map(event => (
-                <li key={event._id} className="list-group-item">
-                  <Event event={event} />
-                </li>
-              ))
-            )
-          }
-          </ul>
+          { events.length > 0 && this.renderEvents() }
+          { events.length === 0 && <div className="empty-state">No Events</div> }
         </div>
         <div className="add-event round-button">
           <div className="round-button-circle">

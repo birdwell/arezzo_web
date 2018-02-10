@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import { Events, AddEvent, UpdateEvent } from './events';
+import { Events, CreateEvent, UpdateEvent } from './events';
 
 const App = () => (
   <Router>
@@ -27,7 +27,7 @@ const App = () => (
       </nav>
 
       <Route exact path="/" component={Events} />
-      <Route path="/addevent" component={AddEvent} />
+      <Route path="/addevent" component={CreateEvent} />
       <Route path="/updateevent/:eventId" component={UpdateEvent} />
     </div>
   </Router>
