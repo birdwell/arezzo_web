@@ -34,11 +34,10 @@ export const addEvent = async (fields) => {
 		website,
 		mediaLinks: mediaLinks.split(','),
 	};
-	debugger;
 	event.paymentOptions = paymentOptions.map(x => x.value);
 	event.languagesAvailable = languagesAvailable.map(x => x.value);
 	// event.restrictions = restrictions.map(x => x.value);
 
 	const response = await axios.post(`${API_BASE}/place`, { ...event });
-	debugger;
+	return response;
 };
