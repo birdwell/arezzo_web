@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { LabeledSelect, LabeledField } from '../forms/common';
+import { LabeledSelect, LabeledField } from '../../forms/common';
 
 const TYPE_OF_TRAILS = [
 	{ label: 'Hiking', value: 'hiking' },
@@ -15,11 +15,12 @@ const DIFFICULTY_OF_TRAIL = [
 	{ label: 'Equipped Expert Hikers(EEA)', value: 'equipped' },
 ];
 
-class AddOutdoors extends Component {
+class CreateOutdoors extends Component {
 	state = {}
 	render() {
 		return (
 			<div>
+				<h3 className="form-header-title">Create an Outdoor item</h3>
 				<LabeledSelect name="trailType" label="Type of trail:" options={TYPE_OF_TRAILS} />
 				<LabeledSelect name="trailDifficulty" label="Trail Difficulty:" options={DIFFICULTY_OF_TRAIL} />
 				<LabeledField name="trailDistance" label="Trail Distance:" placeholder="Enter number of KMs" />
@@ -28,4 +29,4 @@ class AddOutdoors extends Component {
 	}
 }
 
-export default AddOutdoors;
+export default CreateOutdoors;

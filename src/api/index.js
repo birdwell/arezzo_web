@@ -8,3 +8,7 @@ export const getPlaceDetail = async (placeId) => {
 };
 
 export { createEvent, getEvents } from './events-api';
+export { createFood } from './food-api';
+export { createOutdoor } from './outdoors-api';
+export { createShopping } from './shopping-api';
+export { createSight } from './shopping-api';

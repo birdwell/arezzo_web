@@ -6,7 +6,12 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import { Events, CreateEvent, UpdateEvent } from './events';
+import { Events } from './events';
+import { Shopping } from './shopping';
+import { Outdoors } from './outdoors';
+import { Food } from './food';
+import { Home } from './home';
+import { Sights } from './sights';
 
 const App = () => (
   <Router>
@@ -26,9 +31,12 @@ const App = () => (
         </div>
       </nav>
 
-      <Route exact path="/" component={Events} />
-      <Route path="/addevent" component={CreateEvent} />
-      <Route path="/updateevent/:eventId" component={UpdateEvent} />
+      <Route exact path="/" component={Home} />
+      <Route path="/events" component={Events} />
+      <Route path="/food" component={Food} />
+      <Route path="/outdoors" component={Outdoors} />
+      <Route path="/shopping" component={Shopping} />
+      <Route path="/sights" component={Sights} />
     </div>
   </Router>
 );

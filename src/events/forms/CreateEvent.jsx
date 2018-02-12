@@ -25,7 +25,7 @@ class CreateEvent extends Component {
 		const { startDate, endDate } = this.state;
 		return (
 			<div className="event-form">
-				<h2>Create an Event</h2>
+				<h2 className="form-header-title">Create an Event</h2>
 				<BaseForm onSubmit={this.onSubmit}>
 					<SplitRow>
 						<Date label="Start Date" name="startDate" value={startDate} onChange={this.onChange} />

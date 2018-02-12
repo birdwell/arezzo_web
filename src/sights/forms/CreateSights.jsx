@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { LabeledSelect, LabeledRadio } from '../forms/common';
+import { LabeledSelect, LabeledRadio } from '../../forms';
 
 const TYPE_OF_SIGHT = [
 	{ label: 'Natural', value: 'natural' },
@@ -17,12 +17,13 @@ const INDOOR_OPTIONS = [
 	{ value: 'no', label: 'No', name: 'isIndoorOption' },
 ];
 
-class AddSight extends Component {
+class CreateSights extends Component {
 	state = {}
 
 	render() {
 		return (
 			<div>
+				<h3 className="form-header-title">Create a Sight</h3>
 				<LabeledSelect name="typeOfSight" label="Type of sight:" options={TYPE_OF_SIGHT} />
 				<LabeledRadio label="Is the sight indoor?" options={INDOOR_OPTIONS} />
 			</div>
@@ -30,4 +31,4 @@ class AddSight extends Component {
 	}
 }
 
-export default AddSight;
+export default CreateSights;
