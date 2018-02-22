@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import { LabeledSelect, LabeledRadio } from '../../forms';
+import { LabeledSelect, LabeledRadio, BaseForm } from '../../forms';
+import { createSights } from '../../api/sights-api';
+
 
 const TYPE_OF_SIGHT = [
 	{ label: 'Natural', value: 'natural' },
@@ -18,14 +20,31 @@ const INDOOR_OPTIONS = [
 ];
 
 class CreateSights extends Component {
-	state = {}
+	state = {
+		typeOfSight: '',
+		indoorOptions: '',
+	}
+
+	onChange = (name, value) => {
+		this.setState({
+			[name]: value,
+		});
+	}
+
+	onSubmit = (fields) => {
+		const { typeOfSight, indoorOptions } = this.state;
+		createSights({ typeOfSight, indoorOptions, ...fields });
+	}
 
 	render() {
 		return (
 			<div>
 				<h3 className="form-header-title">Create a Sight</h3>
-				<LabeledSelect name="typeOfSight" label="Type of sight:" options={TYPE_OF_SIGHT} />
-				<LabeledRadio label="Is the sight indoor?" options={INDOOR_OPTIONS} />
+				<BaseForm onSubmit={this.onSubmit}>
+					<LabeledSelect name="typeOfSight" label="Type of sight:" options={TYPE_OF_SIGHT} />
+					<br />
+					<LabeledRadio label="Is the sight indoor?" options={INDOOR_OPTIONS} />
+					</BaseForm>
 			</div>
 		);
 	}

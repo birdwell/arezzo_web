@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import { LabeledSelect } from '../../forms';
+import { LabeledSelect, BaseForm } from '../../forms';
+import { createShopping } from '../../api';
 
 const TYPES_OF_SHOP = [
 	{ label: 'antiques', value: 'Antiques' },
@@ -12,13 +13,28 @@ const TYPES_OF_SHOP = [
 ];
 
 class CreateShopping extends Component {
-	state = {}
+	state = {
+		typeOfShopping: '',
+	}
+
+	onChange = (name, value) => {
+		this.setState({
+			[name]: value,
+		});
+	}
+
+	onSubmit = (fields) => {
+		const { typeOfShopping } = this.state;
+		createShopping({ typeOfShopping, ...fields });
+	}
 
 	render() {
 		return (
 			<section className="shop-form">
 				<h3 className="form-header-title">Create a Shop</h3>
-				<LabeledSelect name="typeOfShopping" label="Type of shop:" options={TYPES_OF_SHOP} />
+				<BaseForm obSubmit={this.onSubmit}>
+					<LabeledSelect name="typeOfShopping" label="Type of shop:" options={TYPES_OF_SHOP} />
+				</BaseForm>
 			</section>
 		);
 	}
