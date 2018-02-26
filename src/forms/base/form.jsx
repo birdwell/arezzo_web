@@ -139,7 +139,7 @@ class BaseForm extends Component {
 				<LabeledRadio
 					inline
 					label="Wifi Available"
-					name="isWifiAvailabe"
+					name="wifi"
 					value={wifi}
 					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
 					onChange={this.onChange}

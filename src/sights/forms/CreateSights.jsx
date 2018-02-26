@@ -6,7 +6,7 @@ import { createSights } from '../../api/sights-api';
 
 const TYPE_OF_SIGHT = [
 	{ label: 'Natural', value: 'natural' },
-	{ label: 'Monumnet', value: 'monument' },
+	{ label: 'Monument', value: 'monument' },
 	{ label: 'Ancient Temple', value: 'ancientTemple' },
 	{ label: 'Zoo/Aquarium/Aviary', value: 'zoo' },
 	{ label: 'Museum/Gallery', value: 'museum' },
@@ -41,9 +41,9 @@ class CreateSights extends Component {
 			<div>
 				<h3 className="form-header-title">Create a Sight</h3>
 				<BaseForm onSubmit={this.onSubmit}>
-					<LabeledSelect name="typeOfSight" label="Type of sight:" options={TYPE_OF_SIGHT} />
+					<LabeledSelect name="typeOfSight" label="Type of sight:" options={TYPE_OF_SIGHT} onChange={this.onChange}/>
 					<br />
-					<LabeledRadio label="Is the sight indoor?" options={INDOOR_OPTIONS} />
+					<LabeledRadio label="Is the sight indoor?" options={INDOOR_OPTIONS} onChange={this.onChange}/>
 					</BaseForm>
 			</div>
 		);

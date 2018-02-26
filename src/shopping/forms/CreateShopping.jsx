@@ -33,7 +33,7 @@ class CreateShopping extends Component {
 			<section className="shop-form">
 				<h3 className="form-header-title">Create a Shop</h3>
 				<BaseForm obSubmit={this.onSubmit}>
-					<LabeledSelect name="typeOfShopping" label="Type of shop:" options={TYPES_OF_SHOP} />
+					<LabeledSelect name="typeOfShopping" label="Type of shop:" options={TYPES_OF_SHOP} onChange={this.onChange}/>
 				</BaseForm>
 			</section>
 		);
