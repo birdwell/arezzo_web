@@ -11,7 +11,7 @@ const LabeledRadio = ({ label, options, value, onChange, name, inline }) => (
 		<div className={cx('form-check', { 'form-check-inline': inline })}>
 			{options.map(option => (
 				<div className="radio-option" key={option.value}>
-					<input className="form-check-input" type="radio" name={name} value={value === option.value} onChange={onChange} />
+					<input className="form-check-input" type="radio" name={name} value={option.value} onChange={({ target }) => onChange(name, target.value)} />
 					<label className="form-check-label" htmlFor={name}>{option.label}</label>
 				</div>
 			))}

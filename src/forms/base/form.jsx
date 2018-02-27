@@ -141,7 +141,7 @@ class BaseForm extends Component {
 					label="Wifi Available"
 					name="wifi"
 					value={wifi}
-					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
+					options={[{ label: 'Yes', value: 'true' }, { label: 'No', value: 'false' }]}
 					onChange={this.onChange}
 				/>
 				<LabeledRadio
@@ -149,7 +149,7 @@ class BaseForm extends Component {
 					label="Handicap Accessibility?"
 					name="accessibility"
 					value={accessibility}
-					options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]}
+					options={[{ label: 'Yes', value: 'true' }, { label: 'No', value: 'false' }]}
 					onChange={this.onChange}
 				/>
 				<button type="submit" className="submit btn btn-primary">Submit</button>
