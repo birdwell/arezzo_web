@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const LabeledSelect = ({ label, options, onChange, name }) => (
 	<Fragment>
 		<label>{label}</label>
-		<select name={name} onChange={onChange}>
+		<select name={name} onChange={({ target }) => onChange(name, target.value)}>
 			{options.map(option => (
 				<option key={option.value} value={option.value}>{option.label}</option>
 			))}
