@@ -7,8 +7,8 @@ export const getPlaceDetail = async (placeId) => {
 	return details;
 };
 
-export { createEvent, getEvents } from './events-api';
-export { createFood } from './food-api';
-export { createOutdoor } from './outdoors-api';
-export { createShopping } from './shopping-api';
-export { createSight } from './shopping-api';
+export { createEvent, getEvents, updateEvent} from './events-api';
+export { createFood, getFoods, updateFood } from './food-api';
+export { createOutdoor, getOutdoors, updateOutdoor } from './outdoors-api';
+export { createShopping, getShopping, updateShopping } from './shopping-api';
+export { createSight, getSights, updateSights } from './sights-api';

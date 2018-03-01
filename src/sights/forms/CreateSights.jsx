@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { LabeledSelect, LabeledRadio, BaseForm } from '../../forms';
-import { createSights } from '../../api/sights-api';
+import { createSight } from '../../api/sights-api';
 
 
 const TYPE_OF_SIGHT = [
@@ -33,7 +33,7 @@ class CreateSights extends Component {
 
 	onSubmit = (fields) => {
 		const { typeOfSight, indoorOptions } = this.state;
-		createSights({ typeOfSight, indoorOptions, ...fields });
+		createSight({ typeOfSight, indoorOptions, ...fields });
 	}
 
 	render() {
