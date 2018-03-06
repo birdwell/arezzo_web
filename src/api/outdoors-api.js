@@ -14,7 +14,7 @@ export const createOutdoor = async (fields) => {
 								&& languagesAvailable.map(x => x.value);
     try {
 		const outdoor = formatData(fields);
-		const response = await axios.post(`${API_BASE}/outdoor`, { ...outdoor });
+		const response = await axios.post(`${API_BASE}/outdoors`, { ...outdoor });
 		return response;
 	} catch (e) {
 		return e;
@@ -23,7 +23,7 @@ export const createOutdoor = async (fields) => {
 
 export const getOutdoors = async () => {
 	try {
-		const response = await axios.get(`${API_BASE}/outdoor`);
+		const response = await axios.get(`${API_BASE}/outdoors`);
 		return response.data;
 	} catch (e) {
 		return e;
